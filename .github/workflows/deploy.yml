@@ -17,22 +17,28 @@ jobs:
           node-version: '22'
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install and Build
+        run: |
+          npm ci
+          npm run build
 
-      - name: Build
-        run: npm run build
+      - name: Package for deployment
+        run: |
+          tar -czf deploy.tar.gz \
+            .next package.json package-lock.json \
+            public next.config.ts tsconfig.json \
+            src .env.example
 
-      - name: Deploy to server via SSH
+      - name: Copy to server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          source: ".next,package.json,package-lock.json,public,src,next.config.ts,tsconfig.json,.env.example"
-          target: "/root/CheckinWhere"
+          source: "deploy.tar.gz"
+          target: "/tmp"
 
-      - name: Restart application
+      - name: Deploy and restart
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -40,6 +46,9 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             cd /root/CheckinWhere
-            npm ci --production
+            tar -xzf /tmp/deploy.tar.gz
+            npm ci --omit=dev
             pm2 restart CheckinWhere || pm2 start npm --name CheckinWhere -- start
             pm2 save
+            rm -f /tmp/deploy.tar.gz
+            echo "Deploy done at $(date)"
