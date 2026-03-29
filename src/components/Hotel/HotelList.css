@@ -1,0 +1,20 @@
+.hotel-list {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.hotel-list-header {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.hotel-list-empty {
+  text-align: center;
+  padding: 24px;
+  color: #999;
+  font-size: 14px;
+}

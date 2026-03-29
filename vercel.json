@@ -1,0 +1,10 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "regions": ["hkg1"],
+  "env": {
+    "AMAP_KEY": "@amap_key",
+    "NEXT_PUBLIC_AMAP_JS_KEY": "@amap_js_key"
+  }
+}

@@ -1,0 +1,68 @@
+.poi-card {
+  margin-bottom: 8px;
+  transition: all 0.3s;
+}
+
+.poi-card.selected {
+  border-color: #1890ff;
+  background: #e6f7ff;
+}
+
+.poi-card.compact {
+  padding: 4px;
+}
+
+.poi-card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.poi-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.poi-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.poi-address,
+.poi-tel {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.poi-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.poi-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.poi-rating .ant-rate {
+  font-size: 12px;
+}
+
+.poi-rating .rating-value {
+  font-size: 12px;
+  color: #faad14;
+  margin-left: 4px;
+}

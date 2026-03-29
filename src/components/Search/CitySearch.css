@@ -1,0 +1,43 @@
+.city-search {
+  padding: 16px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+.search-icon {
+  color: #1890ff;
+  font-size: 18px;
+}
+
+.search-input-group {
+  display: flex;
+  gap: 8px;
+}
+
+.search-input-group .ant-input-affix-wrapper {
+  flex: 1;
+}
+
+.current-city {
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: #e6f7ff;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #1890ff;
+}
+
+.current-city strong {
+  color: #333;
+}

@@ -1,0 +1,154 @@
+.hotel-card {
+  margin-bottom: 12px;
+  transition: all 0.3s;
+}
+
+.hotel-card:hover {
+  border-color: #1890ff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.hotel-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hotel-main {
+  flex: 1;
+}
+
+.hotel-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.hotel-address,
+.hotel-tel {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hotel-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.hotel-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hotel-rating .ant-rate {
+  font-size: 12px;
+}
+
+.hotel-rating .rating-value {
+  font-size: 12px;
+  color: #faad14;
+  margin-left: 4px;
+}
+
+.hotel-price {
+  font-size: 14px;
+  color: #ff4d4f;
+  font-weight: 500;
+}
+
+/* 位置信息 */
+.hotel-location-info {
+  padding: 10px;
+  background: #f5f5f5;
+  border-radius: 4px;
+}
+
+.near-poi {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.near-poi strong {
+  color: #1890ff;
+}
+
+.nearest-stop {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.stop-name {
+  color: #333;
+  font-weight: 500;
+}
+
+.stop-distance {
+  color: #999;
+  margin-left: auto;
+}
+
+/* 路线信息 */
+.hotel-routes {
+  padding: 10px;
+  background: #e6f7ff;
+  border-radius: 4px;
+}
+
+.routes-title {
+  font-size: 12px;
+  color: #1890ff;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+}
+
+.routes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.route-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 8px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+.target-poi {
+  font-size: 12px;
+  color: #333;
+  font-weight: 500;
+}
+
+.route-details {
+  display: flex;
+  gap: 12px;
+  font-size: 11px;
+  color: #666;
+}
+
+.route-duration {
+  color: #1890ff;
+  font-weight: 500;
+}
+
+.walking-distance {
+  color: #52c41a;
+}
