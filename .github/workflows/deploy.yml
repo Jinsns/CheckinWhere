@@ -18,6 +18,9 @@ jobs:
           cache: 'npm'
 
       - name: Install and Build
+        env:
+          NEXT_PUBLIC_AMAP_JS_KEY: ${{ secrets.NEXT_PUBLIC_AMAP_JS_KEY }}
+          AMAP_KEY: ${{ secrets.AMAP_KEY }}
         run: |
           npm ci
           npm run build
