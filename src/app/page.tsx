@@ -1,14 +1,14 @@
 'use client';
 
 import { useRef } from 'react';
-import { Layout, Badge, Button } from 'antd';
-import { HomeOutlined } from '@ant-design/icons';
+import { Layout, Badge } from 'antd';
 import AMap from '@/components/Map/AMap';
 import type { AMapRef } from '@/components/Map/AMap';
 import CitySearch from '@/components/Search/CitySearch';
 import POISearch from '@/components/Search/POISearch';
 import POIList from '@/components/POI/POIList';
 import StayRecommend from '@/components/Recommendation/StayRecommend';
+import RandomPicker from '@/components/Random/RandomPicker';
 import { useAppContext } from '@/store/AppContext';
 import type { POI, City } from '@/types';
 import './page.css';
@@ -43,27 +43,38 @@ export default function Home() {
     <Layout className="app-layout">
       <Sider width={400} className="app-sider" breakpoint="lg" collapsedWidth={0}>
         <div className="sider-content">
+
           <div className="app-header">
-            <h1>旅行住宿推荐</h1>
-            <p>搜索景点，智能推荐最佳住宿位置</p>
+            <div className="header-logo">📍</div>
+            <div className="header-text">
+              <h1>住哪儿</h1>
+              <p>智能推荐旅行中转最优住宿</p>
+            </div>
           </div>
 
           <div className="main-content">
-            {/* 城市搜索 */}
-            <CitySearch onCityFound={handleCityFound} />
 
-            {/* 景点搜索 */}
-            <div style={{ marginTop: 16 }}>
+            <div className="section-card">
+              <div className="section-label">选择城市</div>
+              <CitySearch onCityFound={handleCityFound} />
+            </div>
+
+            <div className="section-card">
+              <RandomPicker onCityFound={handleCityFound} />
+            </div>
+
+            <div className="section-card">
+              <div className="section-label">添加景点</div>
               <POISearch onPOISelect={handlePOISelect} />
             </div>
 
-            {/* 已添加的景点 */}
             {state.pois.length > 0 && (
-              <div className="selected-pois-section">
-                <div className="section-header">
-                  <Badge count={state.pois.length} size="small">
-                    <span className="section-title">已添加景点</span>
-                  </Badge>
+              <div className="section-card poi-section">
+                <div className="poi-section-header">
+                  <div className="section-label">
+                    已添加景点
+                    <Badge count={state.pois.length} size="small" style={{ marginLeft: 6, background: '#FF2442' }} />
+                  </div>
                   <a
                     className="clear-link"
                     onClick={() => {
@@ -87,14 +98,14 @@ export default function Home() {
               </div>
             )}
 
-            {/* 住宿推荐 */}
-            <div style={{ marginTop: 16 }}>
+            <div className="section-card">
               <StayRecommend mapRef={mapRef} />
             </div>
+
           </div>
 
           <div className="app-footer">
-            <p>基于高德地图 API</p>
+            <p>Powered by 高德地图 · checkinwhere.site</p>
           </div>
         </div>
       </Sider>

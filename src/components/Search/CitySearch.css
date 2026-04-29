@@ -1,23 +1,7 @@
-.city-search {
-  padding: 16px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
+.city-search {}
 
 .search-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
-  font-size: 16px;
-  font-weight: 500;
-  color: #333;
-}
-
-.search-icon {
-  color: #1890ff;
-  font-size: 18px;
+  display: none; /* label moved to page.tsx section-label */
 }
 
 .search-input-group {
@@ -30,14 +14,18 @@
 }
 
 .current-city {
-  margin-top: 12px;
-  padding: 8px 12px;
-  background: #e6f7ff;
-  border-radius: 4px;
-  font-size: 14px;
-  color: #1890ff;
+  margin-top: 10px;
+  padding: 7px 12px;
+  background: var(--primary-bg);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .current-city strong {
-  color: #333;
+  color: var(--text-1);
+  font-weight: 600;
 }

@@ -3,7 +3,8 @@
     "allow": [
       "Bash(npm install:*)",
       "Bash(npm run:*)",
-      "Bash(npx:*)"
+      "Bash(npx:*)",
+      "Bash(nslookup:*)"
     ]
   },
   "enabledPlugins": {
