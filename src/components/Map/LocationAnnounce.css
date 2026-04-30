@@ -1,0 +1,146 @@
+.location-announce {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* ---- 背景遮罩层（仅透明度变化，不移动） ---- */
+.la-backdrop {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.la-backdrop-in {
+  animation: laBackdropIn 0.5s ease-out forwards;
+}
+
+.la-backdrop-out {
+  animation: laBackdropOut 0.7s ease-in forwards;
+}
+
+@keyframes laBackdropIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes laBackdropOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* ---- 文字内容层（向左上角飞出） ---- */
+.la-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  /* 保持原位，transform-origin 在元素自身中心 */
+}
+
+.la-content-in {
+  animation: laContentIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.la-content-out {
+  animation: laContentOut 0.65s cubic-bezier(0.4, 0, 0.8, 0.2) forwards;
+}
+
+@keyframes laContentIn {
+  from {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translate(0, 0);
+  }
+}
+
+@keyframes laContentOut {
+  from {
+    opacity: 1;
+    transform: scale(1) translate(0, 0);
+  }
+  to {
+    opacity: 0;
+    /* 向左上方飞走，落点方向对应左上角标签的位置 */
+    transform: scale(0.08) translate(-500px, -380px);
+  }
+}
+
+.la-subtitle {
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+}
+
+.la-text {
+  font-size: 54px;
+  font-weight: 900;
+  color: #fff;
+  text-shadow:
+    0 2px 24px rgba(0, 0, 0, 0.45),
+    0 0 80px rgba(255, 255, 255, 0.12);
+  letter-spacing: 4px;
+  text-align: center;
+  padding: 0 40px;
+  line-height: 1.15;
+}
+
+/* ---- 左上角常驻标签 ---- */
+.la-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  padding: 6px 14px 6px 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+  pointer-events: auto;
+  cursor: default;
+  animation: laTagIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.la-tag-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ig-red);
+  flex-shrink: 0;
+}
+
+.la-tag-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #262626;
+  white-space: nowrap;
+}
+
+@keyframes laTagIn {
+  from {
+    opacity: 0;
+    transform: translateX(-18px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}

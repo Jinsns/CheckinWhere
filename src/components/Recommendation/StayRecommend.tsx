@@ -79,20 +79,13 @@ export default function StayRecommend({ mapRef }: StayRecommendProps) {
       if (mapRef?.current) {
         mapRef.current.clearMarkers();
         pois.forEach((poi) => mapRef.current.addMarker(poi, 'poi'));
-        // 标记搜索过的中间站点
-        data.searchedStations?.forEach((station, i) => {
-          mapRef.current.addMarker({
-            id: `station-${i}`,
-            name: station.name,
-            location: { lng: 0, lat: 0 }, // 站点没有坐标信息，这里跳过
-            address: '',
-            type: station.type,
-          }, 'center');
-        });
         data.accommodations.slice(0, 5).forEach((acc) => {
           mapRef.current.addMarker(acc as any, 'hotel');
         });
-        mapRef.current.setFitView();
+        // 以最优推荐住宿为中心展示地图
+        if (data.accommodations.length > 0) {
+          mapRef.current.setCenter(data.accommodations[0].location, 14);
+        }
       }
 
       message.success(`找到 ${data.totalFound} 家住宿`);

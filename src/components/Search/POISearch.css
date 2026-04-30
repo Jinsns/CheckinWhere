@@ -1,13 +1,5 @@
 .poi-search {}
 
-.search-section {
-  margin-bottom: 0;
-}
-
-.search-label {
-  display: none; /* label moved to page.tsx section-label */
-}
-
 .search-input-group {
   display: flex;
   gap: 8px;
@@ -25,4 +17,93 @@
   margin-bottom: 8px;
   padding-bottom: 6px;
   border-bottom: 1px solid var(--border);
+}
+
+/* ---- 热门景点下拉 ---- */
+.hot-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  /* 不覆盖搜索按钮宽度 */
+  right: 76px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  z-index: 200;
+  overflow: hidden;
+}
+
+.hot-dropdown-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-2);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.hot-dropdown-loading {
+  padding: 16px;
+  text-align: center;
+}
+
+.hot-dropdown-list {
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.hot-dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
+  cursor: pointer;
+  transition: background 0.12s;
+  border-bottom: 1px solid var(--border);
+}
+
+.hot-dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.hot-dropdown-item:hover {
+  background: var(--bg);
+}
+
+.hot-item-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.hot-item-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hot-item-rating {
+  font-size: 11px;
+  color: #F5A623;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.hot-item-add {
+  color: var(--text-3);
+  font-size: 12px;
+  flex-shrink: 0;
+  transition: color 0.12s;
+}
+
+.hot-dropdown-item:hover .hot-item-add {
+  color: var(--text-1);
 }

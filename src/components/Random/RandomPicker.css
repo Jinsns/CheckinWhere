@@ -1,77 +1,70 @@
-.random-picker {
-  background: #fff;
-  border-radius: 16px;
-  padding: 16px;
-  box-shadow: 0 2px 16px rgba(255, 36, 66, 0.08);
-  border: 1px solid #FFE8EC;
-}
+.random-picker {}
 
 .rp-header {
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .rp-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: #1a1a1a;
-  letter-spacing: 0.2px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-1);
 }
 
 .rp-tabs {
   display: flex;
-  gap: 8px;
+  gap: 0;
   margin-bottom: 14px;
-  background: #FFF0F2;
-  border-radius: 10px;
-  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
 }
 
 .rp-tab {
   flex: 1;
   border: none;
   background: transparent;
-  padding: 7px 8px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 500;
-  color: #999;
+  padding: 8px 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-2);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.15s;
+}
+
+.rp-tab:first-child {
+  border-right: 1px solid var(--border);
 }
 
 .rp-tab.active {
-  background: #FF2442;
+  background: var(--text-1);
   color: #fff;
-  box-shadow: 0 2px 8px rgba(255, 36, 66, 0.3);
 }
 
 .rp-tab:not(.active):hover {
-  color: #FF2442;
+  background: var(--bg);
 }
 
 .rp-roll-btn {
-  border-radius: 24px !important;
-  height: 42px !important;
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  background: linear-gradient(135deg, #FF2442, #FF6B6B) !important;
+  border-radius: 8px !important;
+  height: 40px !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  background: var(--text-1) !important;
   border: none !important;
   color: #fff !important;
-  box-shadow: 0 4px 12px rgba(255, 36, 66, 0.35) !important;
-  transition: all 0.2s !important;
+  letter-spacing: 0.2px !important;
 }
 
 .rp-roll-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(255, 36, 66, 0.4) !important;
+  opacity: 0.8 !important;
 }
 
 .rp-result {
   margin-top: 12px;
   padding: 12px;
-  background: #FFF8F9;
-  border-radius: 10px;
-  border: 1px solid #FFE0E5;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -84,54 +77,56 @@
 }
 
 .rp-label {
-  font-size: 12px;
-  color: #999;
+  font-size: 11px;
+  color: var(--text-3);
   min-width: 28px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
 .rp-value {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   padding: 2px 10px;
-  border-radius: 12px;
+  border-radius: 6px;
 }
 
 .province-tag {
-  background: #FFF0F2;
-  color: #FF2442;
-  border: 1px solid #FFD0D8;
+  background: #F0EBFF;
+  color: var(--ig-purple);
 }
 
 .city-tag {
-  background: #FFF5E0;
-  color: #FF8C00;
-  border: 1px solid #FFE0A0;
+  background: #FFF0F5;
+  color: var(--ig-red);
 }
 
 .rp-city-btn {
-  border-radius: 20px !important;
+  border-radius: 8px !important;
   height: 36px !important;
-  font-size: 13px !important;
-  border-color: #FF2442 !important;
-  color: #FF2442 !important;
-  background: transparent !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  border-color: var(--border) !important;
+  color: var(--text-1) !important;
+  background: var(--card-bg) !important;
 }
 
 .rp-city-btn:hover {
-  background: #FFF0F2 !important;
+  border-color: var(--text-1) !important;
 }
 
 .rp-coord-desc {
   font-size: 12px;
-  color: #999;
+  color: var(--text-3);
   text-align: center;
   margin-bottom: 12px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .rp-addr {
-  font-size: 13px;
-  color: #333;
+  font-size: 12px;
+  color: var(--text-2);
   line-height: 1.5;
   flex: 1;
 }

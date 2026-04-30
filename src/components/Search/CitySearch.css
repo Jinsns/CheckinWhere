@@ -1,7 +1,7 @@
 .city-search {}
 
 .search-header {
-  display: none; /* label moved to page.tsx section-label */
+  display: none;
 }
 
 .search-input-group {
@@ -15,11 +15,12 @@
 
 .current-city {
   margin-top: 10px;
-  padding: 7px 12px;
-  background: var(--primary-bg);
-  border-radius: 8px;
-  font-size: 13px;
-  color: var(--primary);
+  padding: 8px 12px;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-2);
   display: flex;
   align-items: center;
   gap: 4px;
@@ -27,5 +28,5 @@
 
 .current-city strong {
   color: var(--text-1);
-  font-weight: 600;
+  font-weight: 700;
 }

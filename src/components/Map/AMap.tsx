@@ -4,7 +4,6 @@ import { useEffect, useRef, useState, forwardRef, useImperativeHandle } from 're
 import type { Location, POI } from '@/types';
 import './AMap.css';
 
-// 声明高德地图全局对象
 declare global {
   interface Window {
     AMap: any;
@@ -14,12 +13,20 @@ declare global {
   }
 }
 
+export interface NearbyPOI {
+  id: string;
+  name: string;
+  location: Location;
+}
+
 export interface AMapRef {
   setCenter: (location: Location, zoom?: number) => void;
   addMarker: (poi: POI, type?: 'poi' | 'hotel' | 'center') => void;
   clearMarkers: () => void;
   removeMarker: (id: string) => void;
   setFitView: () => void;
+  addNearbyMarkers: (category: string, icon: string, pois: NearbyPOI[]) => void;
+  clearNearbyMarkers: () => void;
 }
 
 interface AMapProps {
@@ -31,6 +38,7 @@ const AMap = forwardRef<AMapRef, AMapProps>(({ onMapClick, onMarkerClick }, ref)
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<any>(null);
   const markersRef = useRef<Map<string, any>>(new Map());
+  const nearbyMarkersRef = useRef<Map<string, any[]>>(new Map());
   const [mapLoaded, setMapLoaded] = useState(false);
 
   useEffect(() => {
@@ -72,7 +80,6 @@ const AMap = forwardRef<AMapRef, AMapProps>(({ onMapClick, onMarkerClick }, ref)
         return;
       }
 
-      // 使用公开的 JS API Key（仅用于地图展示，服务调用走后端）
       const jsApiKey = process.env.NEXT_PUBLIC_AMAP_JS_KEY || '';
 
       const script = document.createElement('script');
@@ -120,6 +127,7 @@ const AMap = forwardRef<AMapRef, AMapProps>(({ onMapClick, onMarkerClick }, ref)
         position: [poi.location.lng, poi.location.lat],
         content: markerContent,
         offset: new window.AMap.Pixel(offset[0], offset[1]),
+        zIndex: 120,
       });
 
       marker.on('click', () => {
@@ -148,6 +156,45 @@ const AMap = forwardRef<AMapRef, AMapProps>(({ onMapClick, onMarkerClick }, ref)
       if (mapInstance.current && markersRef.current.size > 0) {
         mapInstance.current.setFitView(Array.from(markersRef.current.values()));
       }
+    },
+    addNearbyMarkers: (category: string, icon: string, pois: NearbyPOI[]) => {
+      if (!mapInstance.current) return;
+
+      // Remove existing markers for this category
+      const existing = nearbyMarkersRef.current.get(category);
+      if (existing) {
+        existing.forEach((m) => mapInstance.current.remove(m));
+      }
+
+      const markers = pois.map((poi) => {
+        const escapedName = poi.name.replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const content = `<div class="nearby-marker nearby-marker-${category}">
+          <div class="nearby-icon">${icon}</div>
+          <div class="nearby-name">${escapedName}</div>
+        </div>`;
+
+        const marker = new window.AMap.Marker({
+          position: [poi.location.lng, poi.location.lat],
+          content,
+          offset: new window.AMap.Pixel(-17, -17),
+          zIndex: 100,
+        });
+
+        // 悬浮时提升到最高层，确保 tooltip 不被其他标记遮挡
+        marker.on('mouseover', () => marker.setTop && marker.setTop(true));
+        marker.on('mouseout',  () => marker.setTop && marker.setTop(false));
+
+        mapInstance.current.add(marker);
+        return marker;
+      });
+
+      nearbyMarkersRef.current.set(category, markers);
+    },
+    clearNearbyMarkers: () => {
+      nearbyMarkersRef.current.forEach((markers) => {
+        markers.forEach((m) => mapInstance.current?.remove(m));
+      });
+      nearbyMarkersRef.current.clear();
     },
   }));
 

@@ -1,18 +1,20 @@
 :root {
-  --primary: #FF2442;
-  --primary-light: #FF6B6B;
-  --primary-bg: #FFF0F2;
-  --primary-border: #FFD6DC;
-  --bg: #F7F7F7;
+  --ig-gradient: linear-gradient(45deg, #833AB4, #C13584, #E1306C, #F77737);
+  --ig-purple: #833AB4;
+  --ig-pink: #C13584;
+  --ig-red: #E1306C;
+  --ig-orange: #F77737;
+  --ig-blue: #0095F6;
+  --bg: #FAFAFA;
   --card-bg: #FFFFFF;
-  --text-1: #1A1A1A;
-  --text-2: #666666;
-  --text-3: #999999;
-  --border: #F0F0F0;
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
-  --radius: 14px;
-  --radius-sm: 10px;
+  --text-1: #262626;
+  --text-2: #737373;
+  --text-3: #A8A8A8;
+  --border: #DBDBDB;
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --radius: 12px;
+  --radius-sm: 8px;
 }
 
 * {
@@ -27,7 +29,7 @@ html, body {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Segoe UI', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--bg);
@@ -35,8 +37,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -44,41 +45,48 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #e0e0e0;
+  background: var(--border);
   border-radius: 10px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #ccc;
-}
-
 /* Ant Design overrides */
-.ant-card {
-  border-radius: var(--radius-sm) !important;
-}
-
 .ant-btn-primary {
-  background: var(--primary) !important;
-  border-color: var(--primary) !important;
+  background: var(--text-1) !important;
+  border-color: var(--text-1) !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
 }
 
 .ant-btn-primary:hover {
-  background: var(--primary-light) !important;
-  border-color: var(--primary-light) !important;
+  opacity: 0.75 !important;
 }
 
-.ant-tag {
-  border-radius: 6px !important;
+.ant-btn-default {
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+}
+
+.ant-card {
+  border-radius: var(--radius-sm) !important;
+  border-color: var(--border) !important;
 }
 
 .ant-input, .ant-input-affix-wrapper {
   border-radius: var(--radius-sm) !important;
+  border-color: var(--border) !important;
 }
 
-.ant-select-selector {
-  border-radius: var(--radius-sm) !important;
+.ant-input:focus, .ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+  border-color: var(--ig-purple) !important;
+  box-shadow: 0 0 0 2px rgba(131, 58, 180, 0.1) !important;
 }
 
 .ant-input-number {
   border-radius: var(--radius-sm) !important;
+}
+
+.ant-tag {
+  border-radius: 6px !important;
+  font-size: 11px !important;
 }

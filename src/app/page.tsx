@@ -1,9 +1,10 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Layout, Badge } from 'antd';
 import AMap from '@/components/Map/AMap';
-import type { AMapRef } from '@/components/Map/AMap';
+import type { AMapRef, NearbyPOI } from '@/components/Map/AMap';
+import LocationAnnounce from '@/components/Map/LocationAnnounce';
 import CitySearch from '@/components/Search/CitySearch';
 import POISearch from '@/components/Search/POISearch';
 import POIList from '@/components/POI/POIList';
@@ -18,11 +19,31 @@ const { Content, Sider } = Layout;
 export default function Home() {
   const { state, dispatch } = useAppContext();
   const mapRef = useRef<AMapRef>(null);
+  const [locationName, setLocationName] = useState<string | null>(null);
 
-  const handleCityFound = (city: City) => {
+  const handleCityFound = async (city: City) => {
     if (mapRef.current) {
       mapRef.current.setCenter(city.location, 12);
       mapRef.current.clearMarkers();
+      mapRef.current.clearNearbyMarkers();
+    }
+    setLocationName(city.name);
+
+    // Fetch nearby POIs for the 4 categories（按行政区均匀分布）
+    try {
+      const res = await fetch(
+        `/api/amap/nearby?lat=${city.location.lat}&lng=${city.location.lng}&adcode=${city.adcode}`
+      );
+      const data = await res.json();
+      if (data.categories && mapRef.current) {
+        for (const cat of data.categories) {
+          if ((cat.pois as NearbyPOI[]).length > 0) {
+            mapRef.current.addNearbyMarkers(cat.key, cat.icon, cat.pois);
+          }
+        }
+      }
+    } catch {
+      // Nearby markers are non-critical; ignore errors
     }
   };
 
@@ -73,7 +94,7 @@ export default function Home() {
                 <div className="poi-section-header">
                   <div className="section-label">
                     已添加景点
-                    <Badge count={state.pois.length} size="small" style={{ marginLeft: 6, background: '#FF2442' }} />
+                    <Badge count={state.pois.length} size="small" style={{ marginLeft: 6, background: '#E1306C' }} />
                   </div>
                   <a
                     className="clear-link"
@@ -112,6 +133,7 @@ export default function Home() {
 
       <Content className="app-content">
         <AMap ref={mapRef} onMarkerClick={handlePOIClick} />
+        <LocationAnnounce locationName={locationName} />
       </Content>
     </Layout>
   );
