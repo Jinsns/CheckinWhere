@@ -132,6 +132,22 @@
   margin: 0;
 }
 
+.footer-icp {
+  margin-top: 4px;
+}
+
+.footer-icp a {
+  font-size: 11px;
+  color: var(--text-3);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.footer-icp a:hover {
+  color: var(--text-2);
+  text-decoration: underline;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .app-sider {

@@ -127,6 +127,11 @@ export default function Home() {
 
           <div className="app-footer">
             <p>Powered by 高德地图 · checkinwhere.site</p>
+            <p className="footer-icp">
+              <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">
+                京ICP备2026020953号-1
+              </a>
+            </p>
           </div>
         </div>
       </Sider>
