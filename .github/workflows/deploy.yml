@@ -52,6 +52,8 @@ jobs:
             echo "AMAP_KEY=${{ secrets.AMAP_KEY }}" > .env
             echo "NEXT_PUBLIC_AMAP_JS_KEY=${{ secrets.NEXT_PUBLIC_AMAP_JS_KEY }}" >> .env
             tar -xzf /tmp/deploy.tar.gz
+            cp -r .next/static .next/standalone/.next/static
+            cp -r public .next/standalone/public
             pm2 restart CheckinWhere || pm2 start 'node .next/standalone/server.js' --name CheckinWhere
             pm2 save
             rm -f /tmp/deploy.tar.gz
