@@ -52,8 +52,7 @@ jobs:
             echo "AMAP_KEY=${{ secrets.AMAP_KEY }}" > .env
             echo "NEXT_PUBLIC_AMAP_JS_KEY=${{ secrets.NEXT_PUBLIC_AMAP_JS_KEY }}" >> .env
             tar -xzf /tmp/deploy.tar.gz
-            npm ci --omit=dev
-            pm2 restart CheckinWhere || pm2 start npm --name CheckinWhere -- start
+            pm2 restart CheckinWhere || pm2 start 'node .next/standalone/server.js' --name CheckinWhere
             pm2 save
             rm -f /tmp/deploy.tar.gz
             echo "Deploy done at $(date)"
