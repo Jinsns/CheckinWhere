@@ -88,6 +88,72 @@
   letter-spacing: -0.1px;
 }
 
+.seo-intro {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(225, 48, 108, 0.12), transparent 28%),
+    linear-gradient(135deg, #fff 0%, #fff8fb 100%);
+}
+
+.seo-intro::after {
+  content: '';
+  position: absolute;
+  right: -42px;
+  top: -42px;
+  width: 96px;
+  height: 96px;
+  border-radius: 999px;
+  background: var(--ig-gradient);
+  opacity: 0.12;
+}
+
+.seo-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ig-red);
+  margin-bottom: 8px;
+  letter-spacing: 0.2px;
+}
+
+.seo-intro h2 {
+  position: relative;
+  z-index: 1;
+  font-size: 17px;
+  line-height: 1.35;
+  color: var(--text-1);
+  margin: 0 0 8px;
+  letter-spacing: -0.3px;
+}
+
+.seo-intro p {
+  position: relative;
+  z-index: 1;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text-2);
+  margin: 0;
+}
+
+.seo-tags {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.seo-tags span {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(225, 48, 108, 0.14);
+  color: var(--text-2);
+  font-size: 11px;
+  font-weight: 600;
+}
+
 /* POI section */
 .poi-section-header {
   display: flex;
@@ -146,6 +212,40 @@
 .footer-icp a:hover {
   color: var(--text-2);
   text-decoration: underline;
+}
+
+/* Scenic Spot Picker */
+.scenic-collapse {
+  background: transparent;
+  border: none;
+}
+
+.scenic-collapse .ant-collapse-item {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border) !important;
+  margin-bottom: 12px;
+}
+
+.scenic-collapse .ant-collapse-header {
+  padding: 14px 16px !important;
+}
+
+.scenic-collapse .ant-collapse-content-box {
+  padding: 0 16px 16px !important;
+}
+
+.collapse-label {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-1);
+}
+
+.collapse-icon {
+  margin-right: 8px;
+  font-size: 16px;
 }
 
 /* Responsive */

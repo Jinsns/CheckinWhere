@@ -40,6 +40,7 @@ const AMap = forwardRef<AMapRef, AMapProps>(({ onMapClick, onMarkerClick }, ref)
   const markersRef = useRef<Map<string, any>>(new Map());
   const nearbyMarkersRef = useRef<Map<string, any[]>>(new Map());
   const [mapLoaded, setMapLoaded] = useState(false);
+  const [mapError, setMapError] = useState<string | null>(null);
 
   useEffect(() => {
     initMap();
@@ -52,6 +53,9 @@ const AMap = forwardRef<AMapRef, AMapProps>(({ onMapClick, onMarkerClick }, ref)
 
   async function initMap() {
     try {
+      const jsApiKey = process.env.NEXT_PUBLIC_AMAP_JS_KEY || '';
+      console.log('Loading AMap with key:', jsApiKey.slice(0, 8) + '...');
+
       await loadAMapScript();
       if (mapRef.current && !mapInstance.current) {
         mapInstance.current = new window.AMap.Map(mapRef.current, {
@@ -66,10 +70,12 @@ const AMap = forwardRef<AMapRef, AMapProps>(({ onMapClick, onMarkerClick }, ref)
           }
         });
 
+        console.log('AMap loaded successfully');
         setMapLoaded(true);
       }
     } catch (error) {
       console.error('Failed to load map:', error);
+      setMapError(error instanceof Error ? error.message : '未知错误');
     }
   }
 
@@ -81,6 +87,14 @@ const AMap = forwardRef<AMapRef, AMapProps>(({ onMapClick, onMarkerClick }, ref)
       }
 
       const jsApiKey = process.env.NEXT_PUBLIC_AMAP_JS_KEY || '';
+      const securityCode = process.env.NEXT_PUBLIC_AMAP_SECURITY_CODE || '';
+
+      // 配置安全密钥（高德地图 2024 年之后的新要求）
+      if (securityCode) {
+        window._AMapSecurityConfig = {
+          securityJsCode: securityCode,
+        };
+      }
 
       const script = document.createElement('script');
       script.src = `https://webapi.amap.com/maps?v=2.0&key=${jsApiKey}&plugin=AMap.Marker`;
@@ -201,9 +215,21 @@ const AMap = forwardRef<AMapRef, AMapProps>(({ onMapClick, onMarkerClick }, ref)
   return (
     <div className="amap-container">
       <div ref={mapRef} className="amap-map" />
-      {!mapLoaded && (
+      {mapError && (
+        <div className="amap-error">
+          <div className="amap-error-title">⚠️ 地图加载失败</div>
+          <div className="amap-error-message">{mapError}</div>
+          <div className="amap-error-hint">
+            请检查：<br />
+            1. 网络是否正常连接<br />
+            2. 高德地图 API Key 是否配置正确<br />
+            3. 浏览器控制台是否有报错
+          </div>
+        </div>
+      )}
+      {!mapLoaded && !mapError && (
         <div className="amap-loading">
-          <span>地图加载中...</span>
+          <span>🗺️ 地图加载中...</span>
         </div>
       )}
     </div>

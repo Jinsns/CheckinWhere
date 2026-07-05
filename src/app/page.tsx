@@ -1,7 +1,8 @@
 'use client';
 
-import { useRef, useState } from 'react';
-import { Layout, Badge } from 'antd';
+import { useRef, useState, useEffect } from 'react';
+import Link from 'next/link';
+import { Layout, Badge, Collapse } from 'antd';
 import AMap from '@/components/Map/AMap';
 import type { AMapRef, NearbyPOI } from '@/components/Map/AMap';
 import LocationAnnounce from '@/components/Map/LocationAnnounce';
@@ -10,8 +11,11 @@ import POISearch from '@/components/Search/POISearch';
 import POIList from '@/components/POI/POIList';
 import StayRecommend from '@/components/Recommendation/StayRecommend';
 import RandomPicker from '@/components/Random/RandomPicker';
+import ScenicSpotPicker from '@/components/ScenicSpot/ScenicSpotPicker';
 import { useAppContext } from '@/store/AppContext';
+import { scenicSearchItemToPOI } from '@/lib/scenic-to-poi';
 import type { POI, City } from '@/types';
+import type { ScenicSearchItem } from '@/types/scenic';
 import './page.css';
 
 const { Content, Sider } = Layout;
@@ -29,10 +33,10 @@ export default function Home() {
     }
     setLocationName(city.name);
 
-    // Fetch nearby POIs for the 4 categories（按行政区均匀分布）
+    // Fetch scenic attractions within the city-level administrative region
     try {
       const res = await fetch(
-        `/api/amap/nearby?lat=${city.location.lat}&lng=${city.location.lng}&adcode=${city.adcode}`
+        `/api/amap/nearby?city=${encodeURIComponent(city.name)}&adcode=${city.adcode}`
       );
       const data = await res.json();
       if (data.categories && mapRef.current) {
@@ -60,6 +64,32 @@ export default function Home() {
     }
   };
 
+  // Check for pending scenic spot from detail page
+  useEffect(() => {
+    const pending = localStorage.getItem('pendingScenicSpot');
+    if (pending) {
+      try {
+        const spot = JSON.parse(pending) as ScenicSearchItem;
+        const poi = scenicSearchItemToPOI(spot);
+        dispatch({ type: 'ADD_POI', payload: poi });
+        if (mapRef.current && poi.location.lat !== 0) {
+          mapRef.current.addMarker(poi, 'poi');
+        }
+      } catch (e) {
+        console.error('Failed to parse pending scenic spot');
+      }
+      localStorage.removeItem('pendingScenicSpot');
+    }
+  }, [dispatch]);
+
+  const handleScenicSpotSelect = (spot: ScenicSearchItem) => {
+    const poi = scenicSearchItemToPOI(spot);
+    dispatch({ type: 'ADD_POI', payload: poi });
+    if (mapRef.current && poi.location.lat !== 0) {
+      mapRef.current.addMarker(poi, 'poi');
+    }
+  };
+
   return (
     <Layout className="app-layout">
       <Sider width={400} className="app-sider" breakpoint="lg" collapsedWidth={0}>
@@ -75,6 +105,20 @@ export default function Home() {
 
           <div className="main-content">
 
+            <section className="section-card seo-intro" aria-label="CheckinWhere 旅行住宿推荐工具介绍">
+              <div className="seo-kicker">CheckinWhere · 住哪儿</div>
+              <h2>多景点旅行，住哪里更方便？</h2>
+              <p>
+                CheckinWhere 是一个旅行住宿位置推荐工具。添加多个景点后，系统会根据公交和地铁通勤时间，
+                推荐更适合作为城市旅行中转点的住宿区域，适合自由行、周末游和多景点行程规划。
+              </p>
+              <div className="seo-tags" aria-label="核心功能">
+                <span>多景点住宿推荐</span>
+                <span>公共交通优先</span>
+                <span>城市旅行规划</span>
+              </div>
+            </section>
+
             <div className="section-card">
               <div className="section-label">选择城市</div>
               <CitySearch onCityFound={handleCityFound} />
@@ -84,10 +128,47 @@ export default function Home() {
               <RandomPicker onCityFound={handleCityFound} />
             </div>
 
-            <div className="section-card">
-              <div className="section-label">添加景点</div>
-              <POISearch onPOISelect={handlePOISelect} />
-            </div>
+            <Collapse
+              defaultActiveKey={['search']}
+              className="scenic-collapse"
+              items={[
+                {
+                  key: 'search',
+                  label: (
+                    <div className="collapse-label">
+                      <span className="collapse-icon">🔍</span>
+                      <span>搜索景点</span>
+                    </div>
+                  ),
+                  children: (
+                    <POISearch onPOISelect={handlePOISelect} />
+                  ),
+                },
+                {
+                  key: '5a',
+                  label: (
+                    <div className="collapse-label">
+                      <span className="collapse-icon">🏛️</span>
+                      <span>5A级景区</span>
+                      <Badge count={374} size="small" style={{ marginLeft: 8 }} />
+                    </div>
+                  ),
+                  children: (
+                    <div>
+                      <ScenicSpotPicker
+                        onSpotSelect={handleScenicSpotSelect}
+                        selectedIds={state.pois.map(p => p.id.replace('scenic-', ''))}
+                      />
+                      <div style={{ textAlign: 'center', marginTop: 12, paddingTop: 12, borderTop: '1px solid #f0f0f0' }}>
+                        <Link href="/scenic-spots" style={{ fontSize: 13, color: '#1890ff' }}>
+                          查看全部 374 个景区名录 →
+                        </Link>
+                      </div>
+                    </div>
+                  ),
+                },
+              ]}
+            />
 
             {state.pois.length > 0 && (
               <div className="section-card poi-section">

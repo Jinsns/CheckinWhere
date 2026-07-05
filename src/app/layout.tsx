@@ -6,28 +6,31 @@ import './globals.css';
 
 const SITE_URL = 'https://checkinwhere.site';
 const SITE_NAME = '住哪儿 · CheckinWhere';
+const SITE_TITLE = '住哪儿 · 多景点旅行住宿推荐工具 | CheckinWhere';
 const DESCRIPTION =
-  '旅行住宿智能推荐工具。添加多个景点后，根据公共交通通勤时间，自动找到到各景点最便利的住宿位置。支持随机目的地选择，适合有选择困难症的旅行者。';
+  'CheckinWhere 是一个旅行住宿位置推荐工具。添加多个景点后，根据公交和地铁通勤时间，智能推荐更适合作为城市旅行中转点的住宿区域，适合自由行、周末游和多景点行程规划。';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} — 旅行住宿智能推荐`,
+    default: SITE_TITLE,
     template: `%s | ${SITE_NAME}`,
   },
   description: DESCRIPTION,
   keywords: [
+    'CheckinWhere',
+    'checkinwhere',
+    '住哪儿',
+    '住哪里方便',
+    '多景点住宿推荐',
     '旅行住宿推荐',
+    '旅游住哪里',
     '景点附近住宿',
-    '住哪里',
-    '旅游规划',
+    '城市旅行规划',
+    '自由行住宿推荐',
     '公交住宿',
     '地铁住宿',
     '旅行助手',
-    '智能推荐',
-    '景点住宿',
-    '旅游住宿',
-    'checkinwhere',
   ],
   authors: [{ name: 'CheckinWhere' }],
   creator: 'CheckinWhere',
@@ -50,12 +53,12 @@ export const metadata: Metadata = {
     locale: 'zh_CN',
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: `${SITE_NAME} — 旅行住宿智能推荐`,
+    title: SITE_TITLE,
     description: DESCRIPTION,
   },
   twitter: {
     card: 'summary',
-    title: `${SITE_NAME} — 旅行住宿智能推荐`,
+    title: SITE_TITLE,
     description: DESCRIPTION,
   },
   icons: {
@@ -68,17 +71,21 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
   name: SITE_NAME,
+  alternateName: ['CheckinWhere', '住哪儿', 'checkinwhere.site'],
   url: SITE_URL,
   description: DESCRIPTION,
   applicationCategory: 'TravelApplication',
   operatingSystem: 'Web',
   inLanguage: 'zh-CN',
+  keywords: 'CheckinWhere, 住哪儿, 多景点住宿推荐, 旅行住宿推荐, 城市旅行规划, 公交住宿, 地铁住宿',
   offers: {
     '@type': 'Offer',
     price: '0',
     priceCurrency: 'CNY',
   },
   featureList: [
+    '多景点旅行住宿位置推荐',
+    '根据公交和地铁通勤时间排序',
     '城市地图定位',
     '随机目的地选择',
     '景点搜索与管理',

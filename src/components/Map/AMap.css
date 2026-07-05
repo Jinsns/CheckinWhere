@@ -23,6 +23,44 @@
   color: #666;
 }
 
+.amap-error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  max-width: 360px;
+  text-align: center;
+}
+
+.amap-error-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #E1306C;
+  margin-bottom: 12px;
+}
+
+.amap-error-message {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 12px;
+  font-family: monospace;
+  background: #f5f5f5;
+  padding: 8px 12px;
+  border-radius: 6px;
+  word-break: break-all;
+}
+
+.amap-error-hint {
+  font-size: 12px;
+  color: #888;
+  line-height: 1.6;
+  text-align: left;
+}
+
 /* 自定义标记样式 */
 .custom-marker {
   position: relative;
